@@ -13,16 +13,19 @@ function App() {
 
   // Get random number
   let randomNum = Math.ceil(Math.random() * random);
-  // useEffect(() => {}, []);
 
   const [instrustion, setInstruction] = useState(
     `Guess the number from 1 to ${random}`
   );
+  const [randomRange, setRandomRange] = useState(random);
   const [guessInput, setGuessInput] = useState('');
   const [randomNumber, SetRandomNumber] = useState(randomNum);
   const [result, setResult] = useState('');
-  // console.log(randomNumber);
-  // console.log(random);
+
+  useEffect(() => {
+    console.log(randomNumber);
+    console.log(randomRange);
+  }, []);
 
   const inputTextHandler = (e) => {
     setGuessInput(e.target.value);
@@ -34,17 +37,16 @@ function App() {
 
     if (guessInput == randomNumber) {
       setResult('You Won!');
-    } else if (guessInput > randomNumber && guessInput <= random) {
+    } else if (guessInput > randomNumber && guessInput <= randomRange) {
       setResult('Number too high, try again');
     } else if (guessInput < randomNumber && guessInput >= 1) {
       setResult('Number too low, try again');
-    } else if (guessInput == '') {
+    } else if (guessInput == '' || guessInput == ' ') {
       setResult('You did not enter a number');
     } else if (guessInput > random || guessInput < 1) {
-      {
-        /*setResult(`The number must be between 1 and ${random}`);*/
-      }
-      setResult('You number is not within the range');
+      setResult(`The number must be between 1 and ${randomRange}`);
+
+      // setResult('You number is not within the range');
     } else {
       setResult('Not a number');
     }
